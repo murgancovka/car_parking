@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="hero-unit">
+  <% if flash[:success] %>
+    <div class="alert alert-success">
+      <h4 class="alert-heading">Success!</h4>
+      <%= flash[:success] %>
+    </div> 
+  <% end %>
+  <% if flash[:error] %>
+    <div class="alert alert-error">
+      <h4 class="alert-heading">Error!</h4>
+      <%= flash[:error] %>
+    </div> 
+  <% end %>
+
+  <p>You've entered in <u>Gate #<%= @current_car.gate_id %></u> and your ticket has been created at <u><%= @time_creation_of_ticket %></u></p>
+  
+  <p>You have 15 minutes for free! Hurry up! <span class="ends_at">Remember! Your 15 minutes free ends at <u><%= @time_ends_in_15 %></u></p>
+  
+  <hr/>
+  
+  <p align="center">
+    <%= link_to "Exit from parking!", :action => :payment, :id => @current_car.id %>
+  </p>
+
+</div>

@@ -1,0 +1,42 @@
+    <div class="container">
+      <div class="hero-unit">
+        <h1>Conditions</h1>
+        <p>
+          <ul>
+            <li><strong>1Hour costs 1 &euro;</strong> &mdash; this is very improtant.</li>
+            <li>First 15 minutes are free!</li>
+            <li>Park House is small. Only 10 free spaces, if there will be 10 cars you will get error like "We are full!", and wait for cars that leaves. Free space will be when car is left the Park Hosue only after paying of course.</li>
+            <li>If you paid for you parking successully, you can leave. If you somehow stayed on park mroe than 30 minutes you will have a penalty for 0.5 &euro; and some additional minutes thatt you are stayed more.</li>
+            <li>Administrator can watch all trafic on Park (and delete "bad" cars ;-))</li>
+            
+          </ul>
+        </p>
+        
+      <hr />
+      
+      <h2>Watch the Park Spaces</h2>
+      
+      <p>
+      <div class="row">
+        <% (1..NUMBERS_OF_CAR_ALLOWED_TO_PARKING.to_i).each do |i| %>
+          <div class="span2"> 
+            <% if i <= @car_count %>
+              <div class="red">Busy</div>
+            <% else %>
+              <div class="green">Free</div>
+            <% end %>
+          </div>
+          <% if (i)%10==0 %>
+            </div><div class='row'>
+          <% end %>
+        <% end %>
+        </div>
+      </p>
+      
+      <hr />
+      <ul>
+       <li>Busy : <%= @car_count %> spots</li>
+       <li>Free : <%= NUMBERS_OF_CAR_ALLOWED_TO_PARKING.to_i - @car_count %> spots</li>
+      </ul>
+      
+</div>

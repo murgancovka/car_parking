@@ -1,0 +1,52 @@
+    <div class="container">
+      <div class="hero-unit">
+      <% if flash[:success] %>
+        <div class="alert alert-success">
+          <h4 class="alert-heading">Success!</h4>
+          <%= flash[:success] %>
+        </div>
+      <% end %>
+      
+      <% if flash[:error] %>
+        <div class="alert alert-error">
+          <h4 class="alert-heading">Error!</h4>
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+      
+        <h1>P for Parking</h1>
+        <p>This is a emulation of Parking for cars. Cars are coming, cars are leaving. For instance, this park has a 100 places for cars, everytime it shows how many
+        free spots are left. <b>1 Hour costs <%=PAYMENT_FOR_ONE_HOUR_IN_EURO%> &euro;</b>.</p>
+        
+        <% if @cars_count < NUMBERS_OF_CAR_ALLOWED_TO_PARKING %>
+        <div class="alert alert-success">
+          <h4 class="alert-heading">Free space available! </h4>
+          We have free spaces! Hurry up!
+          <h3><b>(<%=@cars_count%>/<%=NUMBERS_OF_CAR_ALLOWED_TO_PARKING%>)</b></h3>
+        </div>
+        <% else %>
+        <div class="alert alert-error">
+          <h4 class="alert-heading">No free space for you car!</h4>
+          Sorry, we are full!<h3><b>(<%=@cars_count%>/<%=NUMBERS_OF_CAR_ALLOWED_TO_PARKING%>)</b></h3>
+        </div> 
+        <% end %>
+        
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <% @gates.each_with_index do |gate, index| %>
+        <div class="span4">
+          <h2><%= gate.name %></h2>
+          <p>This is gate #<%= gate.id %>. Access is free.</p>
+          <%= form_for :gate, :url => { :controller => 'car_parks', :action => 'create'}, :html => { :class => :well } do |f| %>
+            <%= f.hidden_field :gate_id, :value => gate.id %>
+            <%= f.hidden_field :is_left, :value => false %>
+            <%= f.submit 'Lets Go!', :class => 'btn btn-info' %>
+          <% end %>  
+        </div>
+          <% if (index+1)%3==0 %>
+          </div><div class='row'>
+          <% end %>
+        <% end %>
+      </div>

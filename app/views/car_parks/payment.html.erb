@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="hero-unit">
+
+   <h2 align="center">Your payment is ready!</h2>
+    
+    <p align="center"><%=@message%></p>
+    <% if @time_start > @time_end %> 
+      <p align="center">You have been here more than 15 free minutes</p>
+      <p align="center">You have been here (TIME after 15 free minutes): <u><%= @time_spent %></u></p>
+      <p align="center">You should pay: <span class="badge badge-success"><%= @payment_needed %> &euro;</span></p>
+    <% else %>
+      <p align="center">You have been here less than 15 free minutes, So you are very quickly, and you can go without paying any money!</p>  
+    <% end %>
+    
+   
+
+      <%= form_for @payment, :url => { :action => 'payment', :id => @current_car.id }, :html => { :class => :well } do |f| %>
+        <%= f.hidden_field :car_park_id, :value => @current_car.id %>
+        <%= f.submit 'Click To Pay', :class => 'btn btn-info' %>
+        <%= f.submit 'I will stay at parking for a while', :class => 'btn btn-danger' %>
+      <% end %>
+      
+    <p align="center">You have been here (ALL TIME, include 15 free minutes): <%= @time_spent_all %></p>
+
+</div>

@@ -1,0 +1,82 @@
+    <div class="container">
+      <div class="hero-unit">
+        <h1>About</h1>
+          <p>
+            <ul>
+              <li>Here you can watch how many cars passed today or yesterday or whatevery day.</li>
+              <li>Be careful with dates ;)</li>
+            </ul>
+          </p>
+          
+    <% if !@cars.empty? %>
+      
+      <hr />
+        <div class="alert alert-error" id="alert">
+          <strong></strong>
+        </div>
+    
+        <%= form_for :content, :url => { :action => 'about' }, :html => { :class => :well } do |f| %>
+          <h2>Choose the right date</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Start date <a href="#" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="<%=@time_start.strftime("%Y-%m-%d")%>">Change</a></th>
+                  <th>End date <a href="#" class="btn small" id="dp5" data-date-format="yyyy-mm-dd" data-date="<%=@time_end.strftime("%Y-%m-%d")%>">Change</a></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td id="startDate"><%=@time_start.strftime("%Y-%m-%d")%></td>
+                    <td id="endDate"><%=@time_end.strftime("%Y-%m-%d")%></td>
+                  </tr>
+                </tbody>
+              </table>
+         <%= f.submit 'Find cars between those days!', :class => 'btn btn-info' %>
+       <% end %>   
+        <hr/>
+        
+        <h2>This Page is undone!</h2>
+
+      
+
+	<script>
+		$(function(){
+			window.prettyPrint && prettyPrint();
+			$('#dp1').datepicker({
+				format: 'mm-dd-yyyy'
+			});
+			$('#dp2').datepicker();
+			$('#dp3').datepicker();
+            $('#alert').hide();
+
+            var startDate = new Date(<%=@time_start.strftime("%Y,%m,%d")%>);
+			var endDate = new Date(<%=@time_end.strftime("%Y,%m,%d")%>);
+            
+            
+			$('#dp4').datepicker()
+				.on('changeDate', function(ev){
+					if (ev.date.valueOf() > endDate.valueOf()){
+						$('#alert').show().find('strong').text('The start date can not be greater then the end date');
+					} else {
+						$('#alert').hide();
+						startDate = new Date(ev.date);
+						$('#startDate').text($('#dp4').data('date'));
+					}
+					$('#dp4').datepicker('hide');
+				});
+			$('#dp5').datepicker()
+				.on('changeDate', function(ev){
+					if (ev.date.valueOf() < startDate.valueOf()){
+						$('#alert').show().find('strong').text('The end date can not be less then the start date');
+					} else {
+						$('#alert').hide();
+						endDate = new Date(ev.date);
+						$('#endDate').text($('#dp5').data('date'));
+					}
+					$('#dp5').datepicker('hide');
+				});
+		});
+	</script>
+  <% end %>
+  
+  </div>

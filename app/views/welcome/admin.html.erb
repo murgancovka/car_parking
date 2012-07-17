@@ -1,0 +1,47 @@
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Admin</h1>
+          <p>
+            <ul>
+              <li>Here you can dlete "bad" cars or make them "paid" or "unpaid"</li>
+            </ul>
+          </p>
+      
+        <hr />
+		
+	  <% if flash[:success] %>
+		<div class="alert alert-success">
+		  <h4 class="alert-heading">Success!</h4>
+		  <%= flash[:success] %>
+		</div> 
+	  <% end %>
+
+		<table class="table table-striped">
+		  <thead>
+			<tr>
+			  <th>Car</th>
+			  <th>Ticket got at</th>
+			  <th>Is left?</th>
+			  <th>Actions</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<% @cars.each do |item| %>
+			  <tr>
+				<td><%= item.name %></td>
+				<td><%= item.created_at.strftime('%Y-%m-%d at %H:%M') %></td>
+				<td><%= item.is_left ? 'Yes' : 'No' %></td>
+				<td>
+				 <%= link_to 'Destroy', {:action=>:destroy, :id=>item.id}, :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+				</td>
+			  </tr>
+			<% end %>
+		  </tbody>
+		</table>
+        <hr/>
+        
+        <h2>This Page is undone!</h2>
+
+      </div>

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="hero-unit">
+  <% if flash[:success] %>
+    <div class="alert alert-success">
+      <h4 class="alert-heading">Success!</h4>
+      <%= flash[:success] %>
+    </div> 
+  <% end %>
+
+  <% if flash[:error] %>
+    <div class="alert alert-error">
+      <h4 class="alert-heading">Error!</h4>
+      <%= flash[:error] %>
+    </div> 
+  <% end %>
+  
+  <p>Gates are open!</p>
+  <p>Now you are paid and you can go, but don't forget about extra money you will pay for did not get in time!</p>
+  
+  <%= form_for @car_park, :url => { :controller => :welcome, :action => :exit, :id =>  @current_car.id }, :html => { :class => 'well' } do |f| %>
+    <%= f.submit 'Leave the Parking zone!', :class => 'btn btn-success' %>
+  <% end %>
+  
+</div>

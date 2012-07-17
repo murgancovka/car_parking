@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="hero-unit">
+  <% if flash[:success] %>
+    <div class="alert alert-success">
+      <h4 class="alert-heading">Success!</h4>
+      <%= flash[:success] %>
+    </div> 
+  <% end %>
+
+<%= link_to "Want to get Back to #P once again?", :controller => :welcome, :action => :index %>
+
+  </div>
